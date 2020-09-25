@@ -11,7 +11,7 @@ def main():
     problem4 = "iyhqz ewqin azqej shayz niqbe aheum hnmnj jaqii yuexq ayqkn jbeuq iihed yzhni ifnun sayiz yudhe sqshu qesqa iluym qkque aqaqm oejjs hqzyu jdzqa diesh niznj jayzy uiqhq vayzq shsnj jejjz nshna hnmyt isnae sqfun dqzew qiead zevqi zhnjq shqze udqai jrmtq uishq ifnun siiqa suoij qqfni syyle iszhn bhmei squih nimnx hsead shqmr udquq uaqeu iisqe jshnj oihyy snaxs hqihe lsilu ymhni tyz"
     #Key: TBD, Text: sohewaxesinwealthnowisecanharmhimillnessoragenoevilcaresshadowhisspiritnoswordhatethreatensfromeveranenemyalltheworldwendsathiswillnoworseheknowethtillallwithinhimobstinatepridewaxesandwakeswhilethewardenslumbersthespiritssentrysleepistoofastwhichmastershismightandthemurderernearsstealthilyshootingtheshaftsfromhisbow
     print(problem1)
-    print(decryptedCheck(caesarDecypher(problem1, 1)))
+    print(decryptedCheck(caesarDecypher(problem1, 17)))
 
 def removeSpaces(cipherText):
     count = 0
@@ -55,15 +55,52 @@ def caesarDecypher(cipherText, key):
 
 def decryptedCheck(cipherText):
     count = 0
-    currentText = ""
-    
-    for i in range(len(cipherText)):
-        currentText += cipherText[i]
-        print(currentText)
-        if (currentText in words.words()):
-            count += 1
-            currentText = ""
-            
+    longestWord = 12
+    currentText = cipherText[0:longestWord]
+    twoLetterWords = ["am", "an", "as", "at", "be", "by", "do", "go", "he", "if", "in", "is", "it", "me", "my", "of", "oh", "on", "or", "so", "to", "up", "us", "we"]
+    lowerIndex = 0
+    totalLettersChopped = 0;
+    while (len(currentText) != 0):
+        i = len(currentText) - 1
+        length = len(currentText) - 1
+        for i in range(length, -1, -1):
+            print(currentText)
+            if (len(currentText) > 2 and (currentText in words.words())):
+                count += 1
+                totalLettersChopped += len(currentText)
+                lowerIndex = i + totalLettersChopped
+                if (lowerIndex + longestWord < len(cipherText)):
+                    currentText = cipherText[lowerIndex: lowerIndex + longestWord]
+                else:
+                    currentText = cipherText[lowerIndex: len(cipherText)]
+                break
+            elif (currentText in twoLetterWords):
+                count += 1
+                totalLettersChopped += len(currentText)
+                lowerIndex = i + totalLettersChopped
+                if (lowerIndex + longestWord < len(cipherText)):
+                    currentText = cipherText[lowerIndex: lowerIndex + longestWord]
+                else:
+                    currentText = cipherText[lowerIndex: len(cipherText)]
+                break
+            elif (currentText == "a" or currentText == "i"):
+                count += 1
+                totalLettersChopped += len(currentText)
+                lowerIndex = i + totalLettersChopped
+                if (lowerIndex + longestWord < len(cipherText)):
+                    currentText = cipherText[lowerIndex: lowerIndex + longestWord]
+                else:
+                    currentText = cipherText[lowerIndex: len(cipherText)]
+                break
+            else:
+                currentText = currentText[0:i]
+        lowerIndex = i + totalLettersChopped
+        if (i == 0 and (lowerIndex + longestWord < len(cipherText))):
+            totalLettersChopped += 1
+            currentText = cipherText[lowerIndex: lowerIndex + longestWord]
+        elif (i == 0):
+            totalLettersChopped += 1
+            currentText = cipherText[lowerIndex: len(cipherText)]
     return count
 
 
