@@ -61,14 +61,13 @@ def decryptedCheck(cipherText):
     lowerIndex = 0
     totalLettersChopped = 0;
     while (len(currentText) != 0):
-        i = len(currentText) - 1
         length = len(currentText) - 1
+        i = length
         for i in range(length, -1, -1):
-            print(currentText)
             if (len(currentText) > 2 and (currentText in words.words())):
                 count += 1
+                lowerIndex = i + totalLettersChopped + 1
                 totalLettersChopped += len(currentText)
-                lowerIndex = i + totalLettersChopped
                 if (lowerIndex + longestWord < len(cipherText)):
                     currentText = cipherText[lowerIndex: lowerIndex + longestWord]
                 else:
@@ -76,8 +75,8 @@ def decryptedCheck(cipherText):
                 break
             elif (currentText in twoLetterWords):
                 count += 1
+                lowerIndex = i + totalLettersChopped + 1
                 totalLettersChopped += len(currentText)
-                lowerIndex = i + totalLettersChopped
                 if (lowerIndex + longestWord < len(cipherText)):
                     currentText = cipherText[lowerIndex: lowerIndex + longestWord]
                 else:
@@ -85,8 +84,8 @@ def decryptedCheck(cipherText):
                 break
             elif (currentText == "a" or currentText == "i"):
                 count += 1
+                lowerIndex = i + totalLettersChopped + 1
                 totalLettersChopped += len(currentText)
-                lowerIndex = i + totalLettersChopped
                 if (lowerIndex + longestWord < len(cipherText)):
                     currentText = cipherText[lowerIndex: lowerIndex + longestWord]
                 else:
@@ -94,7 +93,7 @@ def decryptedCheck(cipherText):
                 break
             else:
                 currentText = currentText[0:i]
-        lowerIndex = i + totalLettersChopped
+        lowerIndex = i + totalLettersChopped + 1
         if (i == 0 and (lowerIndex + longestWord < len(cipherText))):
             totalLettersChopped += 1
             currentText = cipherText[lowerIndex: lowerIndex + longestWord]
