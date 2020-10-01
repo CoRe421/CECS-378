@@ -11,7 +11,7 @@ def main():
     #Key: TBD, Text: contrariwisecontinuedtweedledeeifitwassoitmightbeandifitweresoitwouldbebutasitisntitaintthatslogic
     problem4 = "iyhqz ewqin azqej shayz niqbe aheum hnmnj jaqii yuexq ayqkn jbeuq iihed yzhni ifnun sayiz yudhe sqshu qesqa iluym qkque aqaqm oejjs hqzyu jdzqa diesh niznj jayzy uiqhq vayzq shsnj jejjz nshna hnmyt isnae sqfun dqzew qiead zevqi zhnjq shqze udqai jrmtq uishq ifnun siiqa suoij qqfni syyle iszhn bhmei squih nimnx hsead shqmr udquq uaqeu iisqe jshnj oihyy snaxs hqihe lsilu ymhni tyz"
     #Key: TBD, Text: sohewaxesinwealthnowisecanharmhimillnessoragenoevilcaresshadowhisspiritnoswordhatethreatensfromeveranenemyalltheworldwendsathiswillnoworseheknowethtillallwithinhimobstinatepridewaxesandwakeswhilethewardenslumbersthespiritssentrysleepistoofastwhichmastershismightandthemurderernearsstealthilyshootingtheshaftsfromhisbow
-    print(problem1)
+    print(problem3)
     #print(decryptedCheck(caesarDecypher(problem1, 16)))
 
     cipherText1 = removeSpaces(problem1)
@@ -50,10 +50,11 @@ def decrypt(cipherText):
 
 
 def substitutionDecypher(cipherText, key):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
     plainText = ""
     for i in range(len(cipherText)):
-        plainText += key[key.index(cipherText[i])]
-        
+        plainText += key[alphabet.index(cipherText[i])]
+    
     return plainText
 
 
@@ -74,6 +75,43 @@ def findSubstitutionKey(cipherText):
                 index = j
         key[index] = mostFrequentLetters[i]
         commonLetters[index] = -1
+        
+    bigrams = {}
+    trigrams = {}
+    quadgrams = {}
+    totalBigrams = 0
+    totalTrigrams = 0
+    totalQuadgrams = 0
+    
+#    start = 0
+#    end = 1
+#    for end in range(len(cipherText)):
+#        biPattern = cipherText[start : end + 1]
+#        if (biPattern in bigrams):
+#            bigrams[biPattern] += 1
+#        else:
+#            bigrams[biPattern] = 0
+#        totalBigrams += 1
+#
+#    start = 0
+#    end = 2
+#    for end in range(len(cipherText)):
+#        triPattern = cipherText[start : end + 1]
+#        if (triPattern in trigrams):
+#            trigrams[triPattern] += 1
+#        else:
+#            trigrams[triPattern] = 0
+#        totalTrigrams += 1
+#
+#    start = 0
+#    end = 3
+#    for end in range(len(cipherText)):
+#        quadPattern = cipherText[start : end + 1]
+#        if (quadPattern in quadgrams):
+#            quadgrams[quadPattern] += 1
+#        else:
+#            quadgrams[quadPattern] = 0
+#        totalQuadgrams += 1
 
     keyString = ""
     keyString = keyString.join(key)
@@ -86,7 +124,7 @@ def findSubstitutionKey(cipherText):
     temp = 'a'
     randDict = {}
     firstTime = True
-    while (bestKeyCount < len(cipherText) /  6):
+    while (bestKeyCount < len(cipherText) /  5):
         
         newKey = bestKey.copy()
         while ((len(randDict) < 26 * 25) or firstTime):
