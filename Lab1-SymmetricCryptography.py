@@ -17,16 +17,16 @@ def main():
     cipherText1 = removeSpaces(problem1)
     cipherText2 = removeSpaces(problem3)
     cipherText3 = removeSpaces(problem4)
-    answer1 = substitutionDecypher(cipherText1, findSubstitutionKey(cipherText1))
-    print()
-    print(answer1)
+    #answer1 = substitutionDecypher(cipherText1, findSubstitutionKey(cipherText1))
+    #print()
+    #print(answer1)
     answer2 = substitutionDecypher(cipherText2, findSubstitutionKey(cipherText2))
-    print()
-    print(answer1)
+    #print()
+    #print(answer1)
     print(answer2)
     answer3 = substitutionDecypher(cipherText3, findSubstitutionKey(cipherText3))
     print()
-    print(answer1)
+    #print(answer1)
     print(answer2)
     print(answer3)
     
@@ -84,11 +84,15 @@ def findSubstitutionKey(cipherText):
     firstRandLetterIndex = 0
     secondRandLetterIndex = 0
     temp = 'a'
-    randDict = {"" : 0}
-    
+    randDict = {}
+    firstTime = True
     while (bestKeyCount < len(cipherText) /  6):
+        
         newKey = bestKey.copy()
-        while (len(randDict) < 26 * 25):
+        while ((len(randDict) < 26 * 25) or firstTime):
+            if (firstTime):
+                firstTime = False
+            
             randPair = ""
             
             firstRandLetterIndex = random.randrange(0, 26, 1)
@@ -116,7 +120,7 @@ def findSubstitutionKey(cipherText):
             newKeyCount = decryptedCheck(newPlainText)
             if (newKeyCount > bestKeyCount):
                 bestKeyCount = newKeyCount
-                bestKey = newKey
+                bestKey = newKey.copy()
                 randDict.clear()        
         
         
